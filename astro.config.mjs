@@ -6,6 +6,8 @@ import AutoImport from "astro-auto-import";
 import { defineConfig, squooshImageService } from "astro/config";
 import remarkCollapse from "remark-collapse";
 import remarkToc from "remark-toc";
+import rehypeKatex from "rehype-katex";
+import remarkMath from "remark-math";
 import config from "./src/config/config.json";
 
 // https://astro.build/config
@@ -38,6 +40,7 @@ export default defineConfig({
     mdx(),
   ],
   markdown: {
+    rehypePlugins: [rehypeKatex],
     remarkPlugins: [
       remarkToc,
       [
@@ -46,6 +49,7 @@ export default defineConfig({
           test: "Table of contents",
         },
       ],
+      remarkMath,
     ],
     shikiConfig: {
       theme: "one-dark-pro",

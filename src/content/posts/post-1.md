@@ -13,7 +13,7 @@ But first what is a field? You could look that up on [Wikipedia](<https://en.wik
 
 Perhaps what is more valuable is the **motivation** behind a field!
 
-### A laymen's attempt on motivation behind fields.
+## A laymen's attempt on motivation behind fields.
 
 You just came back from Japan.
 
@@ -52,6 +52,44 @@ To undo an addition, we need an additive inverse!
 
 To undo a multiplication, we need a multiplication inverse!
 
+#### Additive and multiplicative identities exist
+
+For the sake of brevity, we will skip over this!
+
 #### Fields are self contained
 
 When doing addition or multiplication with any numbers, it should not result in us having to use any other number systems
+
+### Example of fields?
+
+#### Real numbers
+
+- we can add and multiply them
+- additive and multiplicative inverses exist!
+  - the additive inverse is simply the negative version of number
+    > e.g. $2.68 + (-2.68) = 0$
+  - the multiplicative inverse is simply the reciprocal of the number (e.g. $$5 \times \frac{1}{5} = 1$$)
+- reals are self contained (examples for non-fields will shine more light on this)
+
+### Example of **_Non-fields_**?
+
+#### Integers
+
+- we can add and multiply them
+- additive inverse exist!
+  - the additive inverse is simply the negative version of number (e.g. $$5 + (-5) = 0$$)
+- **multiplicative inverse does not exist**
+  - the multiplicative inverse is the reciprocal of the number, however the reciprocal is **NOT AN INTEGER!**
+- by extension of above, if we were to divide an integer with another integer (e.g. $$2 \divide 5 = \frac{2}{5}$$), we might require another class of numbers (namely rationals), to describe the answer
+
+## Enter Hero (Stage Left) i.e. Finite Fields
+
+#### Integers can be finite fields.. just use modular arithmetic!
+
+The catch is we have to use prime/powers of prime as modulus numbers!
+
+let's consider modulus 5
+
+the additive inverse of 3 is 3! because $$ 3 + 3 = 6 \equiv 1 (mod 5)$$
+
+the multiplicative inverse of 3 is 2! because $$ 3 \time 2 = 6 \equiv 1 (mod 5)$$
