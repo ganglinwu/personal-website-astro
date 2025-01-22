@@ -8,3 +8,7 @@ phases:
     commands:
       - aws s3 rm s3://ganglin.net --recursive
       - npm run build
+artifacts:
+  files:
+    - "**/*"
+  base-directory: "dist"
