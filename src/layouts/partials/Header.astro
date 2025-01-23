@@ -27,7 +27,7 @@ const uniqueCategories: string[] = [
 const categories: NavigationLink[] = uniqueCategories.map(
   (category: string) => ({
     name: category,
-    url: `/categories/${category.toLowerCase().replace(/\s+/g, "-")}`,
+    url: `/categories/${category.toLowerCase().replace(/\s+/g, "-")}/index.html`,
   }),
 );
 
