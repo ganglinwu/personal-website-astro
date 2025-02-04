@@ -53,3 +53,7 @@ strong {
 code {
   @apply after:border-none bg-slate-400;
 }
+
+.copy-code {
+  @apply absolute top-0 right-0 bg-cyan-600 px-1 py-2 text-xs hover:bg-cyan-800;
+}
