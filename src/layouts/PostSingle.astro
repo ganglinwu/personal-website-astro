@@ -1,5 +1,4 @@
 ---
-import Disqus from "@/helpers/Disqus";
 import { getSinglePage } from "@/lib/contentParser.astro";
 import dateFormat from "@/lib/utils/dateFormat";
 import { humanize, markdownify, slugify } from "@/lib/utils/textConverter";
@@ -91,8 +90,6 @@ const { title, description, author, categories, image, date, tags } = post.data;
             <Content />
           </div>
         </article>
-
-        {config.disqus.enable && <Disqus className="mt-20" client:load />}
       </div>
     </div>
 
