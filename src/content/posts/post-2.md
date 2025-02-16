@@ -15,15 +15,12 @@ It's as if a minimalist looked at C and just threw away as much things as possib
 
 ### But it does come with it's own set of problems..
 
-Colour me unimpressed, 2 to 3 weeks into learning the golang, when I found out about slices.
+Colour me unimpressed, 2 to 3 weeks into learning golang, when I found out about slices.
 
-(Using a very naive probabilistic model, if I were to take 2-3 years to get a good grasp of golang, then writing code would truly be akin to navigating a minefield)
+So here's are some footguns pertaining to slices.
+<br>
 
-So here's how you can inadvertently shoot yourself in the foot.
-
-#### Slice problem 1
-
-"Slices are like references to array" [link](https://go.dev/tour/moretypes/8)
+#### <span style="color: red">Slice problem 1a<span/>
 
 ```go
 package main
@@ -31,24 +28,22 @@ package main
 import "fmt"
 
 func main() {
-  a:= []int{1,2,3}
-  b:= a[0:2]
+  a:= []int{1,2,3}  // slice "a"
+  b:= a[0:2]        // slice "b" is a subslice of slice "a"
 
   fmt.Println(a)
   fmt.Println(b)
 }
 ```
 
-output
-
 ```console
 [1 2 3]
 [1 2]
 ```
 
-So far so good right?
+So far so good
 
-Let's try to change 2nd element of slice b
+Let's try to change 2nd element of slice "b"
 
 ```go
 package main
@@ -56,8 +51,8 @@ package main
 import "fmt"
 
 func main() {
-  a:= []int{1,2,3}
-  b:= a[0:2]
+  a:= []int{1,2,3}  // slice "a"
+  b:= a[0:2]        // slice "b" is a subslice of slice "a"
 
   b[1] = 5 // We introduce this line of code
   fmt.Println(a)
@@ -65,24 +60,32 @@ func main() {
 }
 ```
 
-output
-
 ```console
-[1 5 3]
-[1 5]
+[1 5 3] <-- we expected this to be [1 2 3]
+[1 5]   <-- we expected this to be [1 5]
 ```
 
 uh oh.
 
-but hey this is _kinda_ expected?
+we've accidentally changed slice "a" while changing slice "b".
 
-after all a slice IS a reference to the underlying array!
+<br>
 
-#### Slice problem 2
+#### <span style="color: green">Solution 1a<span/>
 
-Let's append to slice b this time. Surely runtime/compiler will allocate new memory to (slice) b and it will no longer be referencing (slice) a right?
+"Slices are like references to array" - [Tour of Go](https://go.dev/tour/moretypes/8)
 
-Right?
+When in rome, do as the romans do!
+
+When writing golang, go as the gophers go!
+
+i.e. this is a feature not a bug!
+
+<br>
+
+#### <span style="color: red">Slice problem 1b<span/>
+
+![Anakin Padme Meme](./anakin_meme_post2.png)
 
 ```go
 package main
@@ -90,8 +93,8 @@ package main
 import "fmt"
 
 func main() {
-  a:= []int{1,2,3}
-  b:= a[0:2]
+  a:= []int{1,2,3}  // slice "a"
+  b:= a[0:2]        // slice "b" is a subslice of slice "a"
 
   b = append(b, 5) // We changed this line
   fmt.Println(a)
@@ -99,8 +102,10 @@ func main() {
 }
 ```
 
+Wanna guess the output?
+
 <details>
-<summary>wanna guess the output?</summary>
+<summary>Click to reveal!</summary>
 
 output
 
@@ -111,9 +116,11 @@ output
 
 </details>
 
-#### Slice problem 3
+<br>
 
-Let's deep dive a little. Let's initialize slices using <code>make()</code>
+#### <span style="color: green">Solution 1b<span/>
+
+Let's explore a little. We initialize slices using <code>make()</code>
 
 ```go
 package main
@@ -138,13 +145,45 @@ output
 
 huh what's with the 2nd and 3rd argument of make?
 
-so it turns out <code>make([]int, 5)</code> creates an anonymous, zerorized int array of length 5 in memory. slice a points to that anonymous int array.
+according to [Tour of Go](https://go.dev/tour/moretypes/11) this is the capacity of a slice!
 
-but <code>make([]int, 0 , 5)</code> creates the same anonymous int array again but slice b references none of it's values! slice b has zero length!
+meaning <code> make([]type, length, capacity) </code>
 
-according to golang [documentation](https://go.dev/tour/moretypes/11) this is the capacity of a slice!
+so... let's answer 2 questions
 
-**Now, allow me to demonstrate the problem**
+##### <span style="color: orange">1. Why did compiler not assign new memory address to appended subslice (i.e. the new slice "b") </span>
+
+There's no need to! slice "b" actually has a capacity of 3
+
+Confused? let me demonstrate with code.
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+  a:= []int{1,2,3}  // slice "a"
+  b:= a[0:2]        // slice "b" is a subslice of slice "a"
+
+  fmt.Printf("Length: %d, Capacity: %d, Slice: %v\n", len(b), cap(b), b)
+```
+
+```console
+Length: 2, Capacity 3, Slice: [1 2]
+```
+
+##### <span style="color: orange">2. Why did it overwrite slice a?</span>
+
+Refer to problem and solution 1a!
+
+<br>
+
+#### <span style="color: red">Slice problem 1c<span/>
+
+**Hey I thought we were done with problem 1.x ???**
+
+Because capacity itself opens another can of worms..
 
 ```go
 package main
@@ -154,7 +193,7 @@ import "fmt"
 func main() {
   intArray := [5]int{3,1,4,1,5} // we create an int array
 
-  a:= intArray[:3] // a will be a slice of intArray
+  a:= intArray[:3] // "a" will be a subslice of intArray
   fmt.Printf("Length: %d, Capacity: %d, Slice: %v\n", len(a), cap(a), a)
 
   // magic happens here
@@ -180,10 +219,10 @@ import "fmt"
 func main() {
   intArray := [5]int{3,1,4,1,5} // we create an int array
 
-  b:= intArray[2:5] // now we use b
+  b:= intArray[2:5] //  "b" is also a subslice of intArray
   fmt.Printf("Length: %d, Capacity: %d, Slice: %v\n", len(b), cap(b), b)
 
-  // HUH? no magic here??? WHY?
+  // HUH? no magic here???
   b = b[0:]
   fmt.Printf("Length: %d, Capacity: %d, Slice: %v\n", len(b), cap(b), b)
 }
@@ -196,69 +235,7 @@ Length: 3, Capacity: 3, [4 1 5]
 
 Apparently, slicing from the front reduces capacity..
 
-Is slice b no longer referencing intArray? Let's deep dive
+#### Slice problem 2
 
-#### Problem 3 gets worse..
-
-Let's recreate problem 3 but we print the pointer addresses of intArray and slice b
-
-```go
-package main
-
-import "fmt"
-
-func main() {
-
-  intArray:= [5]int{3,1,4,1,5}
-
-  b:= intArray[0:]
-  fmt.Printf("Length: %d, Capacity: %d, Slice: %v\n", len(b), cap(b), b)
-
-  // deep dive here
-  fmt.Printf("Address of intArray, %p\n", &intArray)
-  fmt.Printf("Address of slice b, %p\n", &b)
-}
-```
-
-output
-
-```console
-Length: 3, Capacity: 3, [4 1 5]
-Address of intArray, 0xc00011a000
-Address of slice b, 0xc00011c000
-```
-
-This is confusing... the docs mentioned slices are references to the underlying array? But apparently that's not the case here?
-
-#### Slice problem 4
-
-let's look at how append works!
-
-```go
-package main
-
-import "fmt"
-
-func main() {
-  a:= make([]int, 5)
-  b:= make([]int, 0 , 5)
-
-  a = append(a, 5)
-  b = append(b, 5)
-
-  fmt.Println(a)
-  fmt.Println(b)
-}
-```
-
-<details>
-<summary>wanna guess the output again?</summary>
-
-output
-
-```console
-[0 0 0 0 0 5]
-[5]
-```
-
-</details>
+(Work in progress)
+Reading vs writing nil slice
