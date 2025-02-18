@@ -188,7 +188,7 @@ import "fmt"
 
 func main() {
   intArray := [3]int{1,2,3}
-  b := intArray[0:2:2]
+  b := intArray[0:2:2] // change here
 }
 
 fmt.Printf("Length: %d, Capacity: %d, Slice: %v\n", len(b), cap(b), b)
@@ -280,4 +280,4 @@ Perhaps we can think about it as the number of available spaces from pointer add
 ### <span style="color:red">Problem 2</span>
 
 (Work in progress)
-Reading vs writing nil slice
+Reading vs writing empty slice
