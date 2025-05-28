@@ -28,10 +28,10 @@ start my application
 go run main.go
 ```
 
-Then this
+Then this (I can't recall what the error message was exactly, below is a recreation from my fuzzy memory)
 
 ```console
-psql: error : Connection refused.
+psql: error : Connection refused dial 172.31.16.127:5432
 ```
 
 ### Thus I fell into the dreaded "debug and fail" loop
@@ -56,8 +56,11 @@ It's going to be harder and harder for new developers to get into the spirit of 
 
 5. Developers have to spend time off work to develop their development skills.
 
-EC2 stuff
+### Forgetful me, here's the solution to the problem
 
-- HOSTNAME is a reserved env variable name
-  - storing your DB host/endpoint name under 'HOSTNAME' would clash with the internal environment variable for EC2's hostname
-  - resulting in attempts to connect to postgres being directed to localhost
+In my .env file I used HOSTNAME as a variable for the ARN of the RDS instance
+
+HOSTNAME is a reserved OS env variable(Amazon Linux AMI, heck probably all Linux distros)
+
+- storing your DB host/endpoint name under 'HOSTNAME' would clash with the internal environment variable for EC2's hostname
+- resulting in attempts to connect to postgres being directed to localhost
