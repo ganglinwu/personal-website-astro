@@ -25,6 +25,7 @@ Spun up one PostGres instance via AWS RDS.
 start my application
 
 ```go
+
 go run main.go
 ```
 
@@ -34,6 +35,7 @@ Then this (I can't recall what the error message was exactly, below is a recreat
 
 
 psql: error : Connection refused dial 172.31.16.127:5432
+
 ```
 
 ### Thus I fell into the dreaded "debug and fail" loop
@@ -50,27 +52,27 @@ Because I am a n00b.. that's why. Thanks for coming to my TED talk.
 
 But if we go a little deeper, the only threads that were close to my problem were stack overflow posts from yonder years.
 
-2. With the advent of containers and container orchestrators.. who still does stupid things like me in this day and age?
+With the advent of containers and container orchestrators.. who still does stupid things like me in this day and age?
 
-3. Now with LLM (ChatGPT, Claude, etc), coding assistants (co-pilot/cursor). That is the final nail on the coffin for stack overflow.
+2. Now with LLM (ChatGPT, Claude, etc), coding assistants (co-pilot/cursor). That is the final nail on the coffin for stack overflow.
 
 (May 2025 edit: have you guys seen the demo for AWS Q cli? it can even write your app AND THEN deploy to the cloud for you)
 
 It's going to be harder and harder for new developers to get into the spirit of "getting your hands dirty"
 
-4. In a company, you gotta ship fast. You have to be agile.
+3. In a company, you gotta ship fast. You have to be agile.
 
 If you want to do things fast. You will learn a lot less.
 
-5. With AI code completion as a dev tool. Scope of developers is slowly shifting away from being code monkeys.
+4. With AI code completion as a dev tool. Scope of developers is slowly shifting away from being code monkeys.
 
 With cognitive load taken off by coding assistants, work will shift toward higher value tasks, e.g. problem solving.
 
-6. How do you get good at solving problems? (man these questions seem to answer themselves)
+5. How do you get good at solving problems?
 
 Developers have to spend time off work, getting their hands dirty.
 
-7. Back to the death of stack overflow.. as a community, developers are losing an important source of "documentation"
+6. Back to the death of stack overflow.. as a community, developers are losing an important source of "documentation"
 
 ### Forgetful me, here's the solution to the problem
 

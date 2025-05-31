@@ -7,9 +7,9 @@ categories:
 draft: false
 ---
 
-Finite field is so interesting.
+Finite fields is so interesting.
 
-But first what is a field? You could look that up on [Wikipedia](<https://en.wikipedia.org/wiki/Field_(mathematics)>), there is no value in this blog explaining that.
+But first what is a field? You could look that up on [Wikipedia](<https://en.wikipedia.org/wiki/Field_(mathematics)>), there is no value in this post explaining that.
 
 Perhaps what is more valuable is the **motivation** behind a field!
 
