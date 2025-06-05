@@ -82,7 +82,7 @@ Let me try it!
 
 ```console
 
-2025/05/29 13:49:21 invalid semicolon separator in query
+2025/05/29 14:06:57 invalid semicolon separator in query
 
 ```
 
@@ -144,8 +144,11 @@ ah.. that little semi-colon after "form-data"
 
 All of these can be avoided.. if you simply use JSON. That's really it.
 
-But it is rather bemusing that something that the W3C recommends is not being followed by chrome?
+But it is rather bemusing that something that the W3C recommends is not being followed by chrome? or was svelte the culprit?
+(if i have time i might revisit the issue with React, but right now I just can't bring myself to take on anymore self torture)
 
-If I have more time, perhaps I will do the frontend in React and see if I run into the same problem.
+In fact, many on the github issue made references to URL spec.
 
-But at this moment I don't hate myself enough to put myself through a project in React.
+So which org/authority do we follow? W3C or WHATWG?
+
+Also, under the [URL spec for serializing x-www-form-urlencoded](https://url.spec.whatwg.org/#urlencoded-serializing). There is no mention of using a semi-colon!
