@@ -1,5 +1,5 @@
 ---
-title: "AWS EC2: Mistakes I learnt from"
+title: "AWS EC2: Silly mistake by me"
 date: 2025-03-01T05:00:00Z
 image: /images/posts/facepalm.webp
 categories:
