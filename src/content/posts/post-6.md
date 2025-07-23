@@ -8,7 +8,7 @@ categories:
 draft: false
 ---
 
-## A simillar problem I observed while tutoring mathematics to high school students
+## A similar problem I observed while tutoring mathematics to high school students
 
 A typical Singaporean high school student has 2 years to prepare for national exams (A' levels).
 
@@ -44,11 +44,11 @@ how I help students in cases like these:
 - then I point them back to their lecture notes
 - wait for the "eureka" moment to show on their faces (best part of my job)
 
-#### back to me struggling with database/sql
+#### Applying the same approach to database/sql
 
-after implementing sql.DB more.. and scouring the world wide web (unlike my students who had someone feeding them gradually more complex problem sets, I had to seek out my own gradual improvement)
+After implementing sql.DB more and scouring the world wide web (unlike my students who had someone feeding them gradually more complex problem sets, I had to seek out my own gradual improvement), I discovered some excellent resources.
 
-here are some really good articles that helped me build notions of what are the important types and functions in database/sql (perhaps you can have the "eureka" moment when you Return To Friendly Manual)
+These articles helped me build concrete notions of the important types and functions in database/sql. Perhaps after working through these practical examples, you too can have that "eureka" moment when you Return To Friendly Manual!
 
 ## Excellent resources here!
 
@@ -200,17 +200,19 @@ When should we defer is also an important thing!
 
 ![Redundant defer calls accumulating on stack](./redundant_defer_calls_on_stack.jpg)
 
-what happens if you don't close the connection?
+What happens if you don't close the connection? 
 
-the more accurate question is actually what if we don't close \*sql.Row(s)
+The more accurate question is actually: what if we don't close \*sql.Row(s)?
 
-what's the difference?
+What's the difference?
 
 ## What are connections?
 
-Let me explain with an analogy (and a poor drawing)
+Let me explain with an analogy (and a poor drawing):
 
 ![What are connections](./what_are_connections.jpeg)
+
+### The Grocery Shopping Service Analogy
 
 The analogy is to imagine our backend app to be like a 3rd party grocery shopping service.
 
@@ -220,40 +222,45 @@ But the access is not for free, each vehicle must go through stringent checks an
 
 Think of the database connections as the fleet of vehicles sitting in our carpark lots.
 
+### The Connection Pool: Your Fleet Management
+
 - The fleet is analogous to the connection pool that is set up for us when we instantiate sql.DB type
+  - Each vehicle is capable of "Get groceries", just like we will use a connection to run a query
+  - Bonus: sql.DB is concurrent safe!
 
-  - each vehicle is capable of "Get groceries", just like we will use a connection to run a query.
-  - bonus, sql.DB is concurrent safe!
+### Establishing Connections: Vehicle Registration
 
-- To establish a connection, we have to establish TCP/IP and even TLS, and then authenticate into RDBMS(in this case psql)
+- To establish a connection, we have to establish TCP/IP and even TLS, then authenticate into RDBMS (in this case PostgreSQL)
+  - It is not uncommon for connections to be kept open so that we can use it for another query
+  - Analogy: we keep our vehicles registered with the warehouse for months/years, to reduce overheads of stringent checks and lengthy approval process
 
-  - it is not uncommon for connections to be kept open so that we can use it for another Query
-  - analogy: we keep our vehicles registered with the warehouse so we can still access it
+### Concurrent Safety: One Vehicle, One Trip
 
-- to be concurrent safe, under the hood database/sql uses goroutines to launch different connections for separate queries
+- To be concurrent safe, under the hood database/sql uses goroutines to launch different connections for separate queries
+  - Each vehicle is used for one specific trip of "Get groceries"
+  - We do not batch multiple "Get groceries" to 1 vehicle
+  - We do not split one trip of "Get groceries" over multiple vehicles
 
-  - each vehicle is used for one specific trip of "Get groceries"
-  - we do not batch multiple "Get groceries" to 1 vehicle
-  - we do not split one trip of "Get groceries" over multiple vehicles
+### Query Results: Unloading the Goods
 
-- when the query returns the results in \*sql.Row(s) type
-
-  - analogy: our vehicle has returned from the warehouse and now let's unload the goods
+- When the query returns the results in \*sql.Row(s) type:
+  - Analogy: our vehicle has returned from the warehouse and now let's unload the goods
   - We use Scan() method to "unload the goods"
   - If all goes well, everything from the truck is unloaded, it is ready for another trip to warehouse
-    - If too much time has past, we might cancel the registration with warehouse and let our vehicle rest
-    - In database terms: connection has outlived the ConnMaxLifetime and will be reset.
-  - If something goes wrong
-    - best practice: "load up whatever that has already been unloaded" and return everything to the warehouse (a.k.a rolling back transaction)
-    - non-best practice: "let's just clear out our truck so that it can prepare for next trip" (calling Rows.Close())
+  - If something goes wrong:
+    - Best practice: "load up whatever that has already been unloaded" and return everything to the warehouse (a.k.a rolling back transaction)
+    - Non-best practice: "let's just clear out our truck so that it can prepare for next trip" (calling Rows.Close())
 
-- an important distinction is that our goods sit atop the vehicles
+### The Connection Lifecycle
 
-  - also the vehicle can "outlive" the goods, in the sense that once the goods are unloaded we can use the vehicle for the next "Get groceries" trip
-  - likewise \*sql.Row(s) are tied to a connection, but usually the latter will outlive the former.
+- An important distinction is that our goods sit atop the vehicles
+  - The vehicle can "outlive" the goods, in the sense that once the goods are unloaded we can use the vehicle for the next "Get groceries" trip
+  - Likewise \*sql.Row(s) are tied to a connection, but usually the latter will outlive the former
 
-- so if we don't call \*sql.Rows.Close()
-  - The truck would still have goods inside, it will perpetually stay at the loading bay and would not be available.
+### What Happens Without Rows.Close()?
+
+- So if we don't call \*sql.Rows.Close():
+  - The truck would still have goods inside, it will perpetually stay at the loading bay and would not be available
   - In database terms: this connection will not return to your pool
   - If this happens over time, all connections will be exhausted and the application comes to a halt!
 
@@ -265,4 +272,4 @@ Meanwhile, if you feel enlightened enough about database/sql and connections, he
 
 2. [Understanding Go and Databases at Scale: Connection Pooling](https://koho.dev/understanding-go-and-databases-at-scale-connection-pooling-f301e56fa73)
 
-3. [Go's database/sq](https://jmoiron.net/blog/gos-database-sql/)
+3. [Go's database/sql](https://jmoiron.net/blog/gos-database-sql/)
