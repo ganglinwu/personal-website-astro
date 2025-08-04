@@ -105,6 +105,8 @@ jest.mock("path/to/module", mock_implementation_function);
 - **spyOn**: Only changes the specific method you spied on, other methods remain unchanged
 - **jest.mock**: Replaces **ALL** exported functions of a module with `jest.fn()`
 
+**vitest.mock() works _almost_ the same, except that it must be declared at top level outside the describe function of the test!**
+
 ## **Real-World Applications: Testing Layered Architecture**
 
 ### **Scenario 1: Testing Service Layer with spyOn**
