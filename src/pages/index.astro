@@ -2,6 +2,7 @@
 import ImageMod from "@/components/ImageMod.astro";
 import Pagination from "@/components/Pagination.astro";
 import Social from "@/components/Social.astro";
+import Portfolio from "@/components/Portfolio.astro";
 import Base from "@/layouts/Base.astro";
 import { sortByDate } from "@/lib/utils/sortFunctions";
 import { markdownify } from "@/lib/utils/textConverter";
@@ -58,6 +59,9 @@ interface Homepage {
       </div>
     </div>
   </div>
+
+  {/* portfolio */}
+  {/* <Portfolio /> */}
 
   {/* posts */}
   <div class="pt-4">

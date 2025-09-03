@@ -24,31 +24,23 @@ const uniqueCategories: string[] = [
   ...new Set(posts.flatMap((post: any) => post.data.categories)),
 ];
 
-const categories: NavigationLink[] = uniqueCategories.map(
+const categories: ChildNavigationLink[] = uniqueCategories.map(
   (category: string) => ({
     name: category,
     url: `/categories/${category.toLowerCase().replace(/\s+/g, "-")}`,
   }),
 );
 
-// Constructing combinedMenu
-const combinedMenu: NavigationLink[] = [];
-
-// Adding the first item of main
-combinedMenu.push(menu.main[0]);
-
-// Adding all categories
-if (
-  pathname.startsWith(menu.main[0].url) &&
-  !menu.main.slice(1).some((item) => pathname.startsWith(item.url))
-) {
-  combinedMenu.push(...categories);
-}
-
-// Adding the rest of the items from main excluding the first one
-if (!pathname.startsWith("/categories/")) {
-  combinedMenu.push(...menu.main.slice(1));
-}
+// Create menu with categories as children of "All Posts"
+const navigationMenu: NavigationLink[] = menu.main.map(item => {
+  if (item.hasChildren && item.name === "All Posts") {
+    return {
+      ...item,
+      children: categories
+    };
+  }
+  return item;
+});
 ---
 
 <header class={`header mt-8 pb-3 pt-12`}>
@@ -109,37 +101,35 @@ if (!pathname.startsWith("/categories/")) {
 
     <ul
       id="nav-menu"
-      class="navbar-nav order-3 w-full hidden justify-center md:order-1 md:flex md:w-auto md:space-x-2"
+      class="navbar-nav order-3 w-full hidden justify-center md:order-1 md:flex md:w-auto md:space-x-8"
     >
       {
-        combinedMenu.map((menu) => (
+        navigationMenu.map((menuItem) => (
           <>
-            {menu.hasChildren ? (
+            {menuItem.hasChildren ? (
               <li class="nav-item nav-dropdown group relative">
-                <span
-                  class={`nav-link inline-flex items-center ${
-                    menu.children?.map(({ url }) => url).includes(pathname) ||
-                    menu.children
-                      ?.map(({ url }) => `${url}/`)
-                      .includes(pathname)
-                      ? "active"
+                <a
+                  href={menuItem.url}
+                  class={`nav-link inline-flex items-center text-dark hover:text-primary transition-colors duration-200 ${
+                    pathname === menuItem.url || 
+                    menuItem.children?.some(child => pathname === child.url || pathname === `${child.url}/`)
+                      ? "nav-link-active"
                       : ""
                   }`}
                 >
-                  {menu.name}
-                  <svg class="h-4 w-4 fill-current" viewBox="0 0 20 20">
+                  {menuItem.name}
+                  <svg class="ml-1 h-4 w-4 fill-current transition-transform duration-200 group-hover:rotate-180" viewBox="0 0 20 20">
                     <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
                   </svg>
-                </span>
-                <ul class="nav-dropdown-list hidden group-hover:block lg:invisible lg:absolute lg:block lg:opacity-0 lg:group-hover:visible lg:group-hover:opacity-100">
-                  {menu.children?.map((child) => (
+                </a>
+                <ul class="nav-dropdown-list absolute top-full left-0 min-w-[200px] bg-white shadow-lg rounded-lg border border-gray-100 py-2 opacity-0 invisible transform translate-y-2 transition-all duration-300 ease-out group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 z-50">
+                  {menuItem.children?.map((child) => (
                     <li class="nav-dropdown-item">
                       <a
                         href={child.url}
-                        class={`nav-dropdown-link inline-block ${
-                          (pathname === `${child.url}/` ||
-                            pathname === child.url) &&
-                          "active"
+                        class={`nav-dropdown-link block px-4 py-2 text-gray-700 hover:bg-gray-50 hover:text-primary transition-colors duration-150 ${
+                          (pathname === `${child.url}/` || pathname === child.url) &&
+                          "text-primary bg-gray-50"
                         }`}
                       >
                         {child.name}
@@ -151,15 +141,13 @@ if (!pathname.startsWith("/categories/")) {
             ) : (
               <li class="nav-item">
                 <a
-                  href={menu.url}
-                  class={`nav-link inline-block ${
-                    !menu.url.includes("/categories") && "text-dark"
-                  } ${
-                    (pathname === `${menu.url}/` || pathname === menu.url) &&
+                  href={menuItem.url}
+                  class={`nav-link inline-block text-dark hover:text-primary transition-colors duration-200 ${
+                    (pathname === `${menuItem.url}/` || pathname === menuItem.url) &&
                     "nav-link-active"
                   }`}
                 >
-                  {menu.name}
+                  {menuItem.name}
                 </a>
               </li>
             )}

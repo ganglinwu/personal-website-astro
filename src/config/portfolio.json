@@ -1,0 +1,76 @@
+{
+  "featured_projects": [
+    {
+      "title": "MD TalkMan - SwiftUI Audio Reader",
+      "description": "A hands-free SwiftUI app that reads markdown files aloud for drivers. Features premium iOS Text-To-Speech voices, CarPlay support, AppleWatch Controls, GitHub sync, and intelligent audio session management for safe, accessible learning while driving.",
+      "image": "/images/projects/md-talkman.jpg",
+      "tech_stack": [
+        "SwiftUI",
+        "Core Data",
+        "AVFoundation",
+        "GitHub API",
+        "Webhook/APNS",
+        "CarPlay"
+      ],
+      "github_url": "https://github.com/ganglinwu/MD-TalkMan",
+      "live_url": "#",
+      "status": "in_progress",
+      "featured": true
+    },
+    {
+      "title": "TechHub E-commerce Platform",
+      "description": "A modern React e-commerce store showcasing electronics with TypeScript, TailwindCSS, and Zustand state management. Features shopping cart, product details, and responsive design integrated with Platzi Fake Store API for realistic product data.",
+      "image": "/images/projects/techub-store.jpg",
+      "tech_stack": [
+        "React",
+        "TypeScript",
+        "TailwindCSS",
+        "Zustand",
+        "Vite",
+        "React Router"
+      ],
+      "github_url": "https://github.com/ganglinwu/microservice_kafka_prisma_elasticsearch",
+      "live_url": "#",
+      "status": "in_progress",
+      "featured": true
+    },
+    {
+      "title": "Microservices Backend Catalog API",
+      "description": "Node.js microservice backend for e-commerce catalog management with basic Elasticsearch search, Redis caching, and PostgreSQL storage. Features comprehensive testing, structured logging, and Docker containerization.",
+      "image": "/images/projects/catalog-service.jpg",
+      "tech_stack": [
+        "Node.js",
+        "TypeScript",
+        "Express",
+        "PostgreSQL",
+        "Elasticsearch",
+        "Redis",
+        "Docker"
+      ],
+      "github_url": "https://github.com/ganglinwu/microservice_kafka_prisma_elasticsearch",
+      "live_url": "#",
+      "status": "completed",
+      "featured": true
+    },
+    {
+      "title": "Guenyang Hae - Full-Stack Todo App",
+      "description": "A todo application with Go backend. Features a modern SvelteKit frontend with advanced task filtering, priority sorting, project organization, and responsive mobile design.",
+      "image": "/images/projects/guenyang-hae.jpg",
+      "tech_stack": ["Go", "SvelteKit", "TypeScript", "MongoDB", "TailwindCSS"],
+      "github_url": "https://github.com/ganglinwu/golang-todoapp-backend-v1",
+      "live_url": "https://guenyanghae.com",
+      "status": "completed",
+      "featured": true
+    },
+    {
+      "title": "Personal Website & Blog",
+      "description": "A mathematics-focused blog built with Astro featuring custom MDX shortcodes, portfolio showcase, and optimized performance. Demonstrates modern static site generation with dynamic content management and responsive design.",
+      "image": "/images/projects/personal-website.jpg",
+      "tech_stack": ["Astro", "React", "TailwindCSS", "TypeScript", "MDX"],
+      "github_url": "https://github.com/ganglinwu/personal-website-astro",
+      "live_url": "https://ganglin.net",
+      "status": "completed",
+      "featured": false
+    }
+  ]
+}

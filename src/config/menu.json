@@ -2,11 +2,12 @@
   "main": [
     {
       "name": "All Posts",
-      "url": "/"
+      "url": "/",
+      "hasChildren": true
     },
     {
-      "name": "Contact",
-      "url": "/contact"
+      "name": "Portfolio",
+      "url": "/portfolio"
     }
   ]
 }
