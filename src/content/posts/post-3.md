@@ -1,7 +1,7 @@
 ---
 title: "AWS EC2: Silly mistake by me"
 date: 2025-03-01T05:00:00Z
-image: /images/posts/facepalm.webp
+image: /images/facepalm.webp
 categories:
   - AWS
   - EC2

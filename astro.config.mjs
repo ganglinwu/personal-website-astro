@@ -10,17 +10,19 @@ import rehypeKatex from "rehype-katex";
 import remarkMath from "remark-math";
 import config from "./src/config/config.json";
 
+const base_path = config?.site?.base_path ?? "/";
+const trailing_slash = config?.site?.trailing_slash ? "always" : "never";
+
 // https://astro.build/config
 export default defineConfig({
   output: "static",
   site: "https://ganglin.net",
-  base: config.site.base_path ? config.site.base_path : "/",
-  trailingSlash: config.site.trailing_slash ? "always" : "never",
+  base: base_path,
+  trailingSlash: trailing_slash,
   image: {
   },
   integrations: [
     react(),
-    sitemap(),
     tailwind({
       config: {
         applyBaseStyles: false,
@@ -38,6 +40,7 @@ export default defineConfig({
       ],
     }),
     mdx(),
+    sitemap(),
   ],
   markdown: {
     rehypePlugins: [rehypeKatex],
