@@ -31,7 +31,7 @@ When learning something, I prefer understanding it fundamentally from the ground
 
 For example, I'm currently preparing for CKA (Certified Kubernetes Administrator) exams, and I am expected to know how to configure the kube-apiserver
 
-![kube api server configurations](./kubeapiserver_configuration.png)
+![kube api server configurations]("/images/kubeapiserver_configuration.png")
 
 Well there are 2 ways we can go about this
 
@@ -109,7 +109,7 @@ run this again:
 ps -fC nginx
 ```
 
-![results of running ps again but with different results this time](./command1again.png)
+![results of running ps again but with different results this time](/images/command1again.png)
 
 one important thing to note is the process id (PID) of 28114.
 
