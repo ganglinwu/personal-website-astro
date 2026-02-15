@@ -95,7 +95,7 @@ the multiplicative inverse of 3 is 2.. because
 
 here's the multiplication table for modulo 5
 
-![table of multiplication modulo 5](./table_of_multiplication_modulo_5_post1.jpeg)
+![table of multiplication modulo 5](/images/table_of_multiplication_modulo_5_post1.jpeg)
 
 here's an interesting observation: except the rows and columns with zeroes, all the rest have all the numbers 01234 appearing exactly once
 
@@ -103,7 +103,7 @@ kinda like sudoku!
 
 what if we tried doing this with modulo 6 (which is not a prime and not a power of a prime)?
 
-![table of multiplication modulo 6](./table_of_multiplication_modulo_6_post1.jpeg)
+![table of multiplication modulo 6](/images/table_of_multiplication_modulo_6_post1.jpeg)
 it no longer has that sudoku qualities
 
 which means multiplicative inverses may not exists for all numbers!

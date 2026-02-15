@@ -31,7 +31,7 @@ When learning something, I prefer understanding it fundamentally from the ground
 
 For example, I'm currently preparing for CKA (Certified Kubernetes Administrator) exams, and I am expected to know how to configure the kube-apiserver
 
-![kube api server configurations]("/images/kubeapiserver_configuration.png")
+![kube api server configurations](/images/kubeapiserver_configuration.png)
 
 Well there are 2 ways we can go about this
 
@@ -40,7 +40,7 @@ Well there are 2 ways we can go about this
 
 My style is always number 2, I hate to memorize things because I already have too much junk committed in my head.
 
-![vim meme](./hey_there.webp)
+![vim meme](/images/hey_there.webp)
 <sub>That's why I typically start with "Hey there"</sub>
 
 ### you are long winded bro, can you get to the point?
@@ -69,7 +69,7 @@ ps -fC nginx
 
 ```
 
-![results of running ps -fC nginx](./command1.png)
+![results of running ps -fC nginx](/images/command1.png)
 
 ## what did we just do?
 
@@ -146,7 +146,7 @@ sudo ls /proc/28114/root
 
 note: you might want to replace 28114 with the process id that you got from step 3
 
-![here we see the file we created when running ls command](./finalecommand.png)
+![here we see the file we created when running ls command](/images/finalecommand.png)
 
 ### Conclusion
 

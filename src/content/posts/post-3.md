@@ -80,7 +80,7 @@ In my .env file I used HOSTNAME as a variable for the IP address of the RDS inst
 
 HOSTNAME is a reserved OS env variable(Amazon Linux AMI, heck probably all Linux distros)
 
-![picture describing how environment variables got the better of me](./a_thousand_words.jpeg)<sub>they say a picture paints a thousand words.. but what if 1000 gibberish words were painted</sub>
+![picture describing how environment variables got the better of me](/images/a_thousand_words.jpeg)<sub>they say a picture paints a thousand words.. but what if 1000 gibberish words were painted</sub>
 
 - storing your DB host/endpoint name under 'HOSTNAME' would clash with the internal environment variable for EC2's hostname
 - resulting in attempts to connect to postgres being directed to localhost

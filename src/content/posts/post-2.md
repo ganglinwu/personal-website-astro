@@ -87,7 +87,7 @@ i.e. this is a feature not a bug!
 
 ### <span style="color: red">Problem 1b<span/>
 
-![Anakin Padme Meme](./anakin_meme_post2.png)
+![Anakin Padme Meme](/images/anakin_meme_post2.png)
 
 ```go
 package main
@@ -165,7 +165,7 @@ Remember that slices are references to underlying array?
 
 Confused? let me demonstrate with a drawing.
 
-![how append works on slices](./slice_metadata_post2.jpeg)
+![how append works on slices](/images/slice_metadata_post2.jpeg)
 
 #### <span style="color: orange">2. Why did it overwrite slice a?</span>
 

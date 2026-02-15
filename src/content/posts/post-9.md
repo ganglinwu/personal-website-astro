@@ -16,7 +16,7 @@ So something shiny landed on my plate.
 
 ### Enter shiny object --> uber-go/zap
 
-![uber-go/zap google search result](./uber-go:zap.png)
+![uber-go/zap google search result](/images/uber-go:zap.png)
 <sub>
 "Blazing(ly) fast" - Primeagen</sub>
 
@@ -30,7 +30,7 @@ zap is about 4 times faster!
 
 After scrolling down to the benchmarks, _Gasp_ there is something EVEN FASTER!
 
-![zap benchmarks](./zap-benchmarks.png)
+![zap benchmarks](/images/zap-benchmarks.png)
 <sub>there's something EVEN FASTER!!??!!</sub>
 
 ### rs/zerolog --> even faster than zap?!???!
@@ -43,12 +43,12 @@ But for a noob like me, what stood out was both packages mentioned **zero-alloca
 
 So a typical program/application is a process provisioned by the OS. With it comes a block of memory on the RAM (technically Virtual address space).
 
-![stack heap diagram of normal processes](./stackheap1.jpg)
+![stack heap diagram of normal processes](/images/stackheap1.jpg)
 <sub>
 The program/app then splits the memory into stack and heap.
 </sub>
 
-![stack heap diagram for goroutines sharing heap memory](./stackheap2goroutines.png)
+![stack heap diagram for goroutines sharing heap memory](/images/stackheap2goroutines.png)
 <sub>
 Each goroutine (Go's lightweight thread) gets its own stack, but they all share the same heap.
 </sub>
@@ -92,7 +92,7 @@ Then Cooking at home is like heap memory.. if we need a variable to persist even
 But runtime(Garbage Collector) has to continually ask the question, do we still need that ~~condiment~~ variable.
 
 So if we can minimize allocation on the heap.. then BLAZINGLY FAST!
-![zap benchmarks with allocations column highlighted](./zap-benchmarks-highlighted.png)
+![zap benchmarks with allocations column highlighted](/images/zap-benchmarks-highlighted.png)
 <sub>Notice allocations is proportional to speed!</sub>
 
 ### nice bro... why not just force everything to be on the stack.. easy!
@@ -122,7 +122,7 @@ haha here's an experiment:
 
 now we know why it is branded "zero-allocation" and not "zero allocation"
 
-![excerpt from uber-go/zap README](./zero-allocation.png)
+![excerpt from uber-go/zap README](/images/zero-allocation.png)
 <sub>taken from uber-go/zap README.md</sub>
 
 Just like 'sugar-free' drinks still contains sugar, 'zero-allocation' logging might still allocate in edge cases
@@ -174,7 +174,7 @@ logger.Info("event", fields...)
 
 ### p.s. how does zerolog get over allocation in the heap?
 
-![rs/zerolog google search result](./rs:zerolog.png)
+![rs/zerolog google search result](/images/rs:zerolog.png)
 <sub>notice the lack of hyphen/dash?</sub>
 
 do you know fluent interface design pattern (where you chain methods to build an object/instance)?

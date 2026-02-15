@@ -198,7 +198,7 @@ When should we defer is also an important thing!
 - do not defer inside the loop, you are adding duplicated defer calls to the stack!
   - defer is only triggered after the function scope ends, it does not trigger at the end of a for loop!
 
-![Redundant defer calls accumulating on stack](./redundant_defer_calls_on_stack.jpg)
+![Redundant defer calls accumulating on stack](/images/redundant_defer_calls_on_stack.jpg)
 
 What happens if you don't close the connection? 
 
@@ -210,7 +210,7 @@ What's the difference?
 
 Let me explain with an analogy (and a poor drawing):
 
-![What are connections](./what_are_connections.jpeg)
+![What are connections](/images/what_are_connections.jpeg)
 
 ### The Grocery Shopping Service Analogy
 
