@@ -3,7 +3,7 @@ import react from "@astrojs/react";
 import sitemap from "@astrojs/sitemap";
 import tailwind from "@astrojs/tailwind";
 import AutoImport from "astro-auto-import";
-import { defineConfig, squooshImageService } from "astro/config";
+import { defineConfig } from "astro/config";
 import remarkCollapse from "remark-collapse";
 import remarkToc from "remark-toc";
 import rehypeKatex from "rehype-katex";
@@ -13,11 +13,10 @@ import config from "./src/config/config.json";
 // https://astro.build/config
 export default defineConfig({
   output: "static",
-  site: config.site.base_url ? config.site.base_url : "http://examplesite.com",
+  site: "https://ganglin.net",
   base: config.site.base_path ? config.site.base_path : "/",
   trailingSlash: config.site.trailing_slash ? "always" : "never",
   image: {
-    service: squooshImageService(),
   },
   integrations: [
     react(),
