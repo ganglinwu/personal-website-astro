@@ -31,7 +31,7 @@ http.ListenAndServe(":8081", nil)
 
 ```
 
-> ![picture of localhost:8081/ displaying hello, world](./helloworldfromlocalhost.png)<sub>Yes... I am a big fan of Infinite Challenge...</sub>
+> ![picture of localhost:8081/ displaying hello, world](/images/helloworldfromlocalhost.png)<sub>Yes... I am a big fan of Infinite Challenge...</sub>
 
 <br>
 
@@ -67,7 +67,7 @@ not going to post another image. you just have to trust me it works.
 
 let me explain with a picture.
 
-![illustration of the default handler a.k.a http.DefaultServeMux when we don't specify a handler during ListenAndServe()](./defaultservemux.jpeg)
+![illustration of the default handler a.k.a http.DefaultServeMux when we don't specify a handler during ListenAndServe()](/images/defaultservemux.jpeg)
 
 you see.. every golang web server has this internal component called handler.
 
@@ -95,7 +95,7 @@ By not specifying a handler, the web server employs DefaultServeMux.
 
 Notice DefaultServeMux is spelt with a capital D. i.e. it is a global public variable?
 
-![since DefaultServeMux is a global variable. it is accessible by everyone.. including bad actors](./defaultservemux2.jpeg)
+![since DefaultServeMux is a global variable. it is accessible by everyone.. including bad actors](/images/defaultservemux2.jpeg)
 
 As easy as it was for you to inject HandleFunc, it could also be that easy for malicious code to be injected into DefaultServeMux.
 
