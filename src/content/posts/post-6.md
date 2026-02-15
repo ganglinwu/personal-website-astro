@@ -18,7 +18,7 @@ Tell me you are a year 1 student without telling me you are a year 1 student:
 
 ### Tell me you are a junior dev without telling me you are a junior dev
 
-![Bear Trap Meme](./beartrapmeme.jpeg)
+![Bear Trap Meme](/images/beartrapmeme.jpeg)
 
 So I got to admit it. I didn't like [the docs](https://pkg.go.dev/database/sql) for database/sql for the longest time.
 
