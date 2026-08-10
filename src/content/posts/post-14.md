@@ -172,23 +172,6 @@ The pointer's lifetime and the data structure's lifetime have become two separat
 
 That's the whole discipline.
 
-### bonus: this survives the move to Postgres
-
-The nice part is this isn't a hack for my toy in-memory repo. It's the shape I want anyway once there's a real DB behind it.
-
-- `GetUserByID` → `SELECT ... WHERE user_id = $1`
-- `UpdateLocation` → `UPDATE users SET lat = $1, lng = $2 WHERE user_id = $3`
-
-What you emphatically do **not** want is: `SELECT` the whole row, mutate the struct in Go, write the whole row back. That's read-modify-write, and it's how you clobber a concurrent update to some unrelated column and then spend an afternoon learning about lost updates, MVCC snapshots and optimistic concurrency control — when you could have just issued the targeted `UPDATE`.
-
-|                  | Go (in-memory)                           | Postgres                                   |
-| ---------------- | ---------------------------------------- | ------------------------------------------ |
-| The stale handle | pointer into a reallocated backing array | row snapshot someone else already overtook |
-| Symptom          | write lands in orphaned memory           | write clobbers someone else's change       |
-| Fix              | targeted `UpdateX` method                | targeted `UPDATE ... WHERE`                |
-
-Same mistake, different mechanism: a handle to state, held across a boundary, while the state quietly moved on without telling you.
-
 ### TL;DR
 
 1. `for _, x := range s` gives you a **copy**. Mutating it does nothing. Use `for i := range s` and touch `s[i]`.
