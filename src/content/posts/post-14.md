@@ -10,13 +10,18 @@ I'm building a toy ride-hailing backend. Riders, drivers, the usual.
 
 Eventually I want driver matching (Hungarian algorithm, very exciting, another post) but you can't match drivers to riders if you don't know where anybody _is_. So step one: let a user report their lat/lng.
 
-`UpdateLocation`. How hard can it be.
-
-### the setup
+### `UpdateLocation` the setup
 
 My repo layer is still an in-memory `[]models.User`. Placeholder until I bolt on Postgres.
 
-It already had `GetUserByID` (loop the slice, return the match) and `CreateUser` (validate, `append`). Adding a third method felt like free money.
+It already had
+
+1. `GetUserByID` (loop the slice, return the match)
+2. `CreateUser` (validate, `append`)
+
+Adding a third method felt easy.
+
+<img src="/images/sir%20robin.jpeg" alt="That's easy!" width="399" />
 
 ```go
 func (u *UserRepository) UpdateLocation(userID string, lat, lng float64) (models.User, error) {
@@ -32,7 +37,9 @@ func (u *UserRepository) UpdateLocation(userID string, lat, lng float64) (models
 
 It compiles. I hit the endpoint. The JSON comes back with the right coordinates.
 
-Ship it.
+Nice.
+
+<a href="https://youtu.be/VvSO5KEnaVE?si=RB5ynSM4Gb2DWgcl&t=105"><img src="/images/sir%20robin%20smug.png" alt="Overconfidence begets downfall" width="399" /></a>
 
 ### except it's completely broken
 
@@ -44,7 +51,11 @@ $ curl /users/123
 {"userID": "123", "lat": 0, "lng": 0}          # ...wait what
 ```
 
+<img src="/images/sir%20robin%20i%20dont%20know%20that.png" alt="I don't know that" width="399" />
+
 Huh.
+
+<img src="/images/sir%20robin%20yeet.png" alt="yeet" width="399" />
 
 First instinct: maybe the GET handler is broken, reading from the wrong place. I read through it twice. It just calls `GetUserByID` and marshals the result. Nothing wrong there.
 
@@ -58,9 +69,7 @@ Second instinct: add a `fmt.Println` inside `UpdateLocation` right after the mut
 for _, user := range u.users {  // <-- this copies
 ```
 
-There it is. `GetUserByID` ranges by value, so it hands me back a **copy**. Which means `user.Lat = lat` inside `UpdateLocation` mutates a struct sitting on `UpdateLocation`'s stack frame and absolutely nowhere else. `u.users` never hears about it. Next read gives you the stale location, and as far as the matcher is concerned the driver is still parked wherever they were an hour ago.
-
-The POST response was telling the truth about the copy it just mutated. The GET was telling the truth about `u.users`, which never changed. Both responses are "correct" — they're just correct about two different structs.
+There it is. `GetUserByID` ranges by value, so it hands me back a **copy**. Which means `user.Lat = lat` inside `UpdateLocation` mutates a struct sitting on `UpdateLocation`'s stack frame and absolutely nowhere else.
 
 #### why this one is extra sneaky
 
@@ -87,15 +96,13 @@ func (u *UserRepository) UpdateLocation(userID string, lat, lng float64) (models
 }
 ```
 
-`for i := range` instead of `for _, user := range`. No copy. Done.
-
 #### wanna see me shoot my foot the second time?
 
 so I thought "ok but... that's duplicated lookup, no?"
 
 Yes. And this is where I tried to be clever with myself.
 
-`GetUserByID` already knows how to find a user by ID. Why not just have it return a `*models.User`? Then every future `UpdateX` is three lines and I never write that loop again.
+`GetUserByID` already knows how to find a user by ID. Why not just have it return a `*models.User`?
 
 ```go
 // the tempting version
@@ -141,13 +148,11 @@ p.Lat = 1.35                            // no panic. no error. no effect.
 fmt.Println(users[0].Lat)               // 0
 ```
 
+#### Double whammy
+
+not only are we writing at the wrong memory location, we are slowly leaking memory as well now.
+
 Note what did _not_ happen. No crash. No nil deref. Go's GC keeps the old array alive **precisely because** your pointer still references it. So the pointer stays perfectly readable and writable — it's just pointing at an orphaned copy that nobody will ever read again.
-
-not great..
-
-It's the photocopy problem again, except this time Go made the photocopy behind your back while you were holding the original.
-
-(C++ people are nodding right now. This is iterator invalidation wearing a Go hat.)
 
 ### the actual takeaway
 
