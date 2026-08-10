@@ -1,6 +1,6 @@
 ---
 title: "Graceful shutdown in Go"
-date: 2026-02-15T00:00:00Z
+date: 2026-05-10T00:00:00Z
 categories:
   - Golang
 draft: false
