@@ -16,13 +16,13 @@
   "profile": {
     "name": "Ganglin Wu",
     "image": "/images/splash.png",
-    "designation": "Aspiring Backend Engineer <br /> Math Tutor <br/> Father of 1 cheeky boy",
-    "bio": "Hi there! I'm a full time Math Tutor who is really into lifelong learning."
+    "designation": "Full Stack Developer <br /> Father of 1 cheeky boy",
+    "bio": "Hi there! I'm a full stack developer who spends most of my time in Go and TypeScript, building backend services and the occasional frontend to go with them. Math still fascinates me — I'm always chasing the next thing worth learning."
   },
 
   "params": {
     "contact_form_action": "#",
-    "copyright": "Copyright © 2024 a theme by [statichunt](https://statichunt.com)"
+    "copyright": "Copyright © 2026 a theme by [statichunt](https://statichunt.com)"
   },
 
   "disqus": {
@@ -32,8 +32,8 @@
   },
 
   "metadata": {
-    "meta_author": "Statichunt",
+    "meta_author": "Ganglin Wu",
     "meta_image": "/images/og-image.png",
-    "meta_description": "astro and tailwind boilerplate"
+    "meta_description": "Wu Ganglin's personal site and blog — full stack developer writing about Go internals, backend engineering, and how things actually work under the hood."
   }
 }
